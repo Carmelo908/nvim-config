@@ -10,6 +10,8 @@ M = {
 local servers = {
 	"lua_ls",
 	"clangd",
+	"pylyzer",
+	"bashls",
 }
 
 function M.config()
