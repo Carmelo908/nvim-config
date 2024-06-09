@@ -2,7 +2,7 @@ local servers = {
   "emmet_language_server",
 	"lua_ls",
 	"clangd",
-	"jedi-language-server",
+	"jedi_language_server",
 	"bashls",
   "jsonls",
   "html",
@@ -14,7 +14,20 @@ local servers = {
 
 return {
 	"williamboman/mason.nvim",
-	automatic_installation = true,
-  ensure_installed = servers,
-	config = true,
+	dependencies = {
+		"williamboman/mason-lspconfig.nvim",
+	},
+	config = function()
+		require("mason").setup()
+		require("mason-lspconfig").setup_handlers({
+			function (server_name)
+		    	require("lspconfig")[server_name].setup {}
+			end
+		})
+
+		require("mason-lspconfig").setup({
+      ensure_installed = servers,
+      automatic_installation = true,
+		})
+	end
 }
