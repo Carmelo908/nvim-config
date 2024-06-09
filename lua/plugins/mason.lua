@@ -1,31 +1,20 @@
-M = {
-	"williamboman/mason.nvim",
-	dependencies = {
-		'williamboman/mason-lspconfig.nvim',
-		'nvim-lua/plenary.nvim',
-	},
-	automatic_installation = true,
-}
-
 local servers = {
+  "emmet_language_server",
 	"lua_ls",
 	"clangd",
-	"pylyzer",
+	"jedi-language-server",
 	"bashls",
+  "jsonls",
+  "html",
+  "cmake",
+  "cssls",
+  "tsserver",
+  "vimls",
 }
 
-function M.config()
-	require("mason").setup()
-	require("mason-lspconfig").setup_handlers({
-		function (server_name)
-		    require("lspconfig")[server_name].setup {}
-		end
-	})
-	require("mason-lspconfig").setup({
-      ensure_installed = servers,
-      automatic_installation = true,
-	})
-end
-
-
-return M
+return {
+	"williamboman/mason.nvim",
+	automatic_installation = true,
+  ensure_installed = servers,
+	config = true,
+}
